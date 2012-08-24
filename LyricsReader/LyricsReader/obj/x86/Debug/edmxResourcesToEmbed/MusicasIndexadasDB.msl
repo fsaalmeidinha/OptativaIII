@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjetoIndexacaoDBModelStoreContainer" CdmEntityContainer="ProjetoIndexacaoDBEntities">
+    <EntitySetMapping Name="Musicas">
+      <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Musica">
+        <MappingFragment StoreEntitySet="Musica">
+          <ScalarProperty Name="Letra" ColumnName="Letra" />
+          <ScalarProperty Name="NomeMusica" ColumnName="NomeMusica" />
+          <ScalarProperty Name="Cantor" ColumnName="Cantor" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MusicaPalavras">
+      <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.MusicaPalavra">
+        <MappingFragment StoreEntitySet="MusicaPalavra">
+          <ScalarProperty Name="Indices" ColumnName="Indices" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Palavras">
+      <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Palavra">
+        <MappingFragment StoreEntitySet="Palavra">
+          <ScalarProperty Name="Descricao" ColumnName="Palavra" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FK_MusicaPalavra_Musica" TypeName="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Musica" StoreEntitySet="MusicaPalavra">
+      <EndProperty Name="MusicaPalavra">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <EndProperty Name="Musica">
+        <ScalarProperty Name="Id" ColumnName="IdMusica" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_MusicaPalavra_Palavra" TypeName="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" StoreEntitySet="MusicaPalavra">
+      <EndProperty Name="MusicaPalavra">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <EndProperty Name="Palavra">
+        <ScalarProperty Name="Id" ColumnName="IdPalavra" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

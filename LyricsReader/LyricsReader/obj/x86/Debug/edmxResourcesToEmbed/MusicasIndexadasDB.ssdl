@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjetoIndexacaoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ProjetoIndexacaoDBModelStoreContainer">
+    <EntitySet Name="Musica" EntityType="ProjetoIndexacaoDBModel.Store.Musica" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MusicaPalavra" EntityType="ProjetoIndexacaoDBModel.Store.MusicaPalavra" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Palavra" EntityType="ProjetoIndexacaoDBModel.Store.Palavra" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_MusicaPalavra_Musica" Association="ProjetoIndexacaoDBModel.Store.FK_MusicaPalavra_Musica">
+      <End Role="Musica" EntitySet="Musica" />
+      <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MusicaPalavra_Palavra" Association="ProjetoIndexacaoDBModel.Store.FK_MusicaPalavra_Palavra">
+      <End Role="Palavra" EntitySet="Palavra" />
+      <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Musica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Cantor" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="NomeMusica" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="Letra" Type="varchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MusicaPalavra">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdMusica" Type="int" Nullable="false" />
+    <Property Name="IdPalavra" Type="int" Nullable="false" />
+    <Property Name="Indices" Type="varchar" Nullable="false" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="Palavra">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Palavra" Type="varchar" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <Association Name="FK_MusicaPalavra_Musica">
+    <End Role="Musica" Type="ProjetoIndexacaoDBModel.Store.Musica" Multiplicity="1" />
+    <End Role="MusicaPalavra" Type="ProjetoIndexacaoDBModel.Store.MusicaPalavra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Musica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MusicaPalavra">
+        <PropertyRef Name="IdMusica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MusicaPalavra_Palavra">
+    <End Role="Palavra" Type="ProjetoIndexacaoDBModel.Store.Palavra" Multiplicity="1" />
+    <End Role="MusicaPalavra" Type="ProjetoIndexacaoDBModel.Store.MusicaPalavra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Palavra">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MusicaPalavra">
+        <PropertyRef Name="IdPalavra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

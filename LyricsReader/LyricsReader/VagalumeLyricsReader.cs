@@ -11,7 +11,7 @@ namespace LyricsReader
     public class VagalumeLyricsReader
     {
         //string urlEstilo = "http://www.vagalume.com.br/browse/style/mpb.html";
-        List<char> letrasAlfabeto = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+        List<char> letrasAlfabeto = new List<char>() { 'c' };//, 'd', 'e', 'f', 'g', 'h' };
         List<string> urlsEstilos = new List<string>() { 
             "http://www.vagalume.com.br/browse/style/mpb.html",
             "http://www.vagalume.com.br/browse/style/pagode.html",
@@ -24,21 +24,29 @@ namespace LyricsReader
         List<Musica> musicas = new List<Musica>();
         Mutex mut = new Mutex();
 
-        public List<Musica> LerMusicas()
+        public List<Musica> LerMusicas(ref string erros)
         {
-            List<Thread> threads = new List<Thread>();
-
-            foreach (string urlEstilo in urlsEstilos)
+            try
             {
-                string urlEstiloFixThread = urlEstilo;
-                Thread thread = new Thread(unused => RecuperarMusicasPorEstilo(urlEstiloFixThread));
-                thread.Start();
-                threads.Add(thread);
+                List<Thread> threads = new List<Thread>();
+
+                foreach (string urlEstilo in urlsEstilos)
+                {
+                    string urlEstiloFixThread = urlEstilo;
+                    Thread thread = new Thread(unused => RecuperarMusicasPorEstilo(urlEstiloFixThread));
+                    thread.Start();
+                    threads.Add(thread);
+                }
+
+                threads.ForEach(thread => thread.Join());
+
+                return musicas;
             }
-
-            threads.ForEach(thread => thread.Join());
-
-            return musicas;
+            catch (Exception ex)
+            {
+                erros = ex.Message.ToString();
+                return null;
+            }
         }
 
         #region Filtros para o estilo

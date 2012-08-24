@@ -3,3 +3,9 @@ c:\users\felipe.almeida1\documents\visual studio 2010\Projects\LyricsReader\Lyri
 c:\users\felipe.almeida1\documents\visual studio 2010\Projects\LyricsReader\LyricsReader\obj\x86\Debug\ResolveAssemblyReference.cache
 c:\users\felipe.almeida1\documents\visual studio 2010\Projects\LyricsReader\LyricsReader\obj\x86\Debug\LyricsReader.exe
 c:\users\felipe.almeida1\documents\visual studio 2010\Projects\LyricsReader\LyricsReader\obj\x86\Debug\LyricsReader.pdb
+C:\Users\felipe.almeida1\Desktop\optativa\LyricsReader\LyricsReader\obj\x86\Debug\LyricsReader.exe
+C:\Users\felipe.almeida1\Desktop\optativa\LyricsReader\LyricsReader\obj\x86\Debug\LyricsReader.pdb
+C:\Users\felipe.almeida1\Desktop\optativa\LyricsReader\LyricsReader\bin\Debug\LyricsReader.exe.config
+C:\Users\felipe.almeida1\Desktop\optativa\LyricsReader\LyricsReader\bin\Debug\LyricsReader.exe
+C:\Users\felipe.almeida1\Desktop\optativa\LyricsReader\LyricsReader\bin\Debug\LyricsReader.pdb
+C:\Users\felipe.almeida1\Desktop\optativa\LyricsReader\LyricsReader\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjetoIndexacaoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ProjetoIndexacaoDBModelStoreContainer">
+          <EntitySet Name="Musica" EntityType="ProjetoIndexacaoDBModel.Store.Musica" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MusicaPalavra" EntityType="ProjetoIndexacaoDBModel.Store.MusicaPalavra" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Palavra" EntityType="ProjetoIndexacaoDBModel.Store.Palavra" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_MusicaPalavra_Musica" Association="ProjetoIndexacaoDBModel.Store.FK_MusicaPalavra_Musica">
+            <End Role="Musica" EntitySet="Musica" />
+            <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MusicaPalavra_Palavra" Association="ProjetoIndexacaoDBModel.Store.FK_MusicaPalavra_Palavra">
+            <End Role="Palavra" EntitySet="Palavra" />
+            <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Musica">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Cantor" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="NomeMusica" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Letra" Type="varchar" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MusicaPalavra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdMusica" Type="int" Nullable="false" />
+          <Property Name="IdPalavra" Type="int" Nullable="false" />
+          <Property Name="Indices" Type="varchar" Nullable="false" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Palavra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Palavra" Type="varchar" Nullable="false" MaxLength="80" />
+        </EntityType>
+        <Association Name="FK_MusicaPalavra_Musica">
+          <End Role="Musica" Type="ProjetoIndexacaoDBModel.Store.Musica" Multiplicity="1" />
+          <End Role="MusicaPalavra" Type="ProjetoIndexacaoDBModel.Store.MusicaPalavra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musica">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MusicaPalavra">
+              <PropertyRef Name="IdMusica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MusicaPalavra_Palavra">
+          <End Role="Palavra" Type="ProjetoIndexacaoDBModel.Store.Palavra" Multiplicity="1" />
+          <End Role="MusicaPalavra" Type="ProjetoIndexacaoDBModel.Store.MusicaPalavra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palavra">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MusicaPalavra">
+              <PropertyRef Name="IdPalavra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjetoIndexacaoDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ProjetoIndexacaoDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Musicas" EntityType="ProjetoIndexacaoDBModel.Musica" />
+          <EntitySet Name="MusicaPalavras" EntityType="ProjetoIndexacaoDBModel.MusicaPalavra" />
+          <EntitySet Name="Palavras" EntityType="ProjetoIndexacaoDBModel.Palavra" />
+          <AssociationSet Name="FK_MusicaPalavra_Musica" Association="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Musica">
+            <End Role="Musica" EntitySet="Musicas" />
+            <End Role="MusicaPalavra" EntitySet="MusicaPalavras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MusicaPalavra_Palavra" Association="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra">
+            <End Role="Palavra" EntitySet="Palavras" />
+            <End Role="MusicaPalavra" EntitySet="MusicaPalavras" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Musica">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Cantor" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="NomeMusica" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Letra" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="MusicaPalavras" Relationship="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Musica" FromRole="Musica" ToRole="MusicaPalavra" />
+        </EntityType>
+        <EntityType Name="MusicaPalavra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Indices" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Musica" Relationship="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Musica" FromRole="MusicaPalavra" ToRole="Musica" />
+          <NavigationProperty Name="Palavra" Relationship="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" FromRole="MusicaPalavra" ToRole="Palavra" />
+        </EntityType>
+        <EntityType Name="Palavra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MusicaPalavras" Relationship="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" FromRole="Palavra" ToRole="MusicaPalavra" />
+        </EntityType>
+        <Association Name="FK_MusicaPalavra_Musica">
+          <End Type="ProjetoIndexacaoDBModel.Musica" Role="Musica" Multiplicity="1" />
+          <End Type="ProjetoIndexacaoDBModel.MusicaPalavra" Role="MusicaPalavra" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_MusicaPalavra_Palavra">
+          <End Type="ProjetoIndexacaoDBModel.Palavra" Role="Palavra" Multiplicity="1" />
+          <End Type="ProjetoIndexacaoDBModel.MusicaPalavra" Role="MusicaPalavra" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjetoIndexacaoDBModelStoreContainer" CdmEntityContainer="ProjetoIndexacaoDBEntities">
+          <EntitySetMapping Name="Musicas">
+            <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Musica">
+              <MappingFragment StoreEntitySet="Musica">
+                <ScalarProperty Name="Letra" ColumnName="Letra" />
+                <ScalarProperty Name="NomeMusica" ColumnName="NomeMusica" />
+                <ScalarProperty Name="Cantor" ColumnName="Cantor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MusicaPalavras">
+            <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.MusicaPalavra">
+              <MappingFragment StoreEntitySet="MusicaPalavra">
+                <ScalarProperty Name="Indices" ColumnName="Indices" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Palavras">
+            <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Palavra">
+              <MappingFragment StoreEntitySet="Palavra">
+                <ScalarProperty Name="Descricao" ColumnName="Palavra" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_MusicaPalavra_Musica" TypeName="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Musica" StoreEntitySet="MusicaPalavra">
+            <EndProperty Name="MusicaPalavra">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <EndProperty Name="Musica">
+              <ScalarProperty Name="Id" ColumnName="IdMusica" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_MusicaPalavra_Palavra" TypeName="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" StoreEntitySet="MusicaPalavra">
+            <EndProperty Name="MusicaPalavra">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <EndProperty Name="Palavra">
+              <ScalarProperty Name="Id" ColumnName="IdPalavra" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MusicasIndexadasDB">
+        <EntityTypeShape EntityType="ProjetoIndexacaoDBModel.Musica" PointX="0.75" PointY="0.75" Width="1.5" Height="1.5923063151041674" />
+        <EntityTypeShape EntityType="ProjetoIndexacaoDBModel.MusicaPalavra" Width="1.5" PointX="4" PointY="0.75" Height="1.5923063151041654" />
+        <EntityTypeShape EntityType="ProjetoIndexacaoDBModel.Palavra" Width="1.5" PointX="1.75" PointY="3.75" Height="1.4279589843749996" />
+        <AssociationConnector Association="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Musica" >
+          <ConnectorPoint PointX="2.25" PointY="1.5461531575520828" />
+          <ConnectorPoint PointX="4" PointY="1.5461531575520828" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" >
+          <ConnectorPoint PointX="3.25" PointY="4.4639794921875" />
+          <ConnectorPoint PointX="4.75" PointY="4.4639794921875" />
+          <ConnectorPoint PointX="4.75" PointY="2.3423063151041656" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
