@@ -1,9 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ProjetoIndexacaoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="ProjetoIndexacaoDBModelStoreContainer">
+    <EntitySet Name="Bigrama" EntityType="ProjetoIndexacaoDBModel.Store.Bigrama" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Musica" EntityType="ProjetoIndexacaoDBModel.Store.Musica" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MusicaPalavra" EntityType="ProjetoIndexacaoDBModel.Store.MusicaPalavra" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Palavra" EntityType="ProjetoIndexacaoDBModel.Store.Palavra" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Palavra_Bigrama" EntityType="ProjetoIndexacaoDBModel.Store.Palavra_Bigrama" store:Type="Tables" store:Schema="dbo" store:Name="Palavra_Bigrama">
+      <DefiningQuery>SELECT 
+      [Palavra_Bigrama].[IdPalavra] AS [IdPalavra], 
+      [Palavra_Bigrama].[IdBigrama] AS [IdBigrama]
+      FROM [dbo].[Palavra_Bigrama] AS [Palavra_Bigrama]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_MusicaPalavra_Musica" Association="ProjetoIndexacaoDBModel.Store.FK_MusicaPalavra_Musica">
       <End Role="Musica" EntitySet="Musica" />
       <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
@@ -12,7 +19,24 @@
       <End Role="Palavra" EntitySet="Palavra" />
       <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
     </AssociationSet>
+    <AssociationSet Name="FK_Palavra_Bigrama_Bigrama" Association="ProjetoIndexacaoDBModel.Store.FK_Palavra_Bigrama_Bigrama">
+      <End Role="Bigrama" EntitySet="Bigrama" />
+      <End Role="Palavra_Bigrama" EntitySet="Palavra_Bigrama" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Palavra_Bigrama_Palavra" Association="ProjetoIndexacaoDBModel.Store.FK_Palavra_Bigrama_Palavra">
+      <End Role="Palavra" EntitySet="Palavra" />
+      <End Role="Palavra_Bigrama" EntitySet="Palavra_Bigrama" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Bigrama">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Valor" Type="char" Nullable="false" MaxLength="2" />
+    <Property Name="ExtremoAEsquerda" Type="bit" Nullable="false" />
+    <Property Name="ExtremoADireita" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Musica">
     <Key>
       <PropertyRef Name="Id" />
@@ -27,16 +51,27 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Indices" Type="varchar" Nullable="false" MaxLength="2000" />
     <Property Name="IdMusica" Type="int" Nullable="false" />
     <Property Name="IdPalavra" Type="int" Nullable="false" />
-    <Property Name="Indices" Type="varchar" Nullable="false" MaxLength="2000" />
   </EntityType>
   <EntityType Name="Palavra">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Palavra" Type="varchar" Nullable="false" MaxLength="80" />
+    <Property Name="Descricao" Type="nchar" Nullable="false" MaxLength="80" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'MusicasIndexadasDB.dbo.Palavra_Bigrama' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Palavra_Bigrama">
+    <Key>
+      <PropertyRef Name="IdPalavra" />
+      <PropertyRef Name="IdBigrama" />
+    </Key>
+    <Property Name="IdPalavra" Type="int" Nullable="false" />
+    <Property Name="IdBigrama" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_MusicaPalavra_Musica">
     <End Role="Musica" Type="ProjetoIndexacaoDBModel.Store.Musica" Multiplicity="1" />
@@ -58,6 +93,30 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="MusicaPalavra">
+        <PropertyRef Name="IdPalavra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Palavra_Bigrama_Bigrama">
+    <End Role="Bigrama" Type="ProjetoIndexacaoDBModel.Store.Bigrama" Multiplicity="1" />
+    <End Role="Palavra_Bigrama" Type="ProjetoIndexacaoDBModel.Store.Palavra_Bigrama" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bigrama">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Palavra_Bigrama">
+        <PropertyRef Name="IdBigrama" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Palavra_Bigrama_Palavra">
+    <End Role="Palavra" Type="ProjetoIndexacaoDBModel.Store.Palavra" Multiplicity="1" />
+    <End Role="Palavra_Bigrama" Type="ProjetoIndexacaoDBModel.Store.Palavra_Bigrama" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Palavra">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Palavra_Bigrama">
         <PropertyRef Name="IdPalavra" />
       </Dependent>
     </ReferentialConstraint>

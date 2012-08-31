@@ -11,13 +11,13 @@ namespace LyricsReader
     {
         static void Main(string[] args)
         {
-            MusicaRN musicaRN = new MusicaRN();
+            //MusicaRN musicaRN = new MusicaRN();
             //musicaRN.SalvarMusicas();
-            //PalavraRN palavraRN = new PalavraRN();
-            //palavraRN.SalvarPalavras();
+            PalavraRN palavraRN = new PalavraRN();
+            palavraRN.SalvarPalavras();
 
 
-            List<Musica> musicas = musicaRN.PesquisarMusicasPorFiltro("avenida", "coracao");
+            //List<Musica> musicas = musicaRN.PesquisarMusicasPorFiltro("avenida", "coracao");
 
             //List<Musica> musicas = new VagalumeLyricsReader().LerMusicas();
             //Musica msk = musicas.First();

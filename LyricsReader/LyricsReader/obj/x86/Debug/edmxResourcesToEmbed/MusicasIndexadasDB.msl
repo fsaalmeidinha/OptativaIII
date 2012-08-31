@@ -22,7 +22,7 @@
     <EntitySetMapping Name="Palavras">
       <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Palavra">
         <MappingFragment StoreEntitySet="Palavra">
-          <ScalarProperty Name="Descricao" ColumnName="Palavra" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -41,6 +41,24 @@
       </EndProperty>
       <EndProperty Name="Palavra">
         <ScalarProperty Name="Id" ColumnName="IdPalavra" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Bigrama">
+      <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Bigrama">
+        <MappingFragment StoreEntitySet="Bigrama">
+          <ScalarProperty Name="ExtremoADireita" ColumnName="ExtremoADireita" />
+          <ScalarProperty Name="ExtremoAEsquerda" ColumnName="ExtremoAEsquerda" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Palavra_Bigrama" TypeName="ProjetoIndexacaoDBModel.Palavra_Bigrama" StoreEntitySet="Palavra_Bigrama">
+      <EndProperty Name="Palavra">
+        <ScalarProperty Name="Id" ColumnName="IdPalavra" />
+      </EndProperty>
+      <EndProperty Name="Bigrama">
+        <ScalarProperty Name="Id" ColumnName="IdBigrama" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

@@ -20,6 +20,7 @@ using System.Runtime.Serialization;
 
 [assembly: EdmRelationshipAttribute("ProjetoIndexacaoDBModel", "FK_MusicaPalavra_Musica", "Musica", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(LyricsReader.Musica), "MusicaPalavra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(LyricsReader.MusicaPalavra))]
 [assembly: EdmRelationshipAttribute("ProjetoIndexacaoDBModel", "FK_MusicaPalavra_Palavra", "Palavra", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(LyricsReader.Palavra), "MusicaPalavra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(LyricsReader.MusicaPalavra))]
+[assembly: EdmRelationshipAttribute("ProjetoIndexacaoDBModel", "Palavra_Bigrama", "Bigrama", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(LyricsReader.Bigrama), "Palavra", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(LyricsReader.Palavra))]
 
 #endregion
 
@@ -118,6 +119,22 @@ namespace LyricsReader
             }
         }
         private ObjectSet<Palavra> _Palavras;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Bigrama> Bigrama
+        {
+            get
+            {
+                if ((_Bigrama == null))
+                {
+                    _Bigrama = base.CreateObjectSet<Bigrama>("Bigrama");
+                }
+                return _Bigrama;
+            }
+        }
+        private ObjectSet<Bigrama> _Bigrama;
 
         #endregion
         #region AddTo Methods
@@ -145,6 +162,14 @@ namespace LyricsReader
         {
             base.AddObject("Palavras", palavra);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Bigrama EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBigrama(Bigrama bigrama)
+        {
+            base.AddObject("Bigrama", bigrama);
+        }
 
         #endregion
     }
@@ -153,6 +178,164 @@ namespace LyricsReader
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ProjetoIndexacaoDBModel", Name="Bigrama")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Bigrama : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Bigrama object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="valor">Initial value of the Valor property.</param>
+        /// <param name="extremoAEsquerda">Initial value of the ExtremoAEsquerda property.</param>
+        /// <param name="extremoADireita">Initial value of the ExtremoADireita property.</param>
+        public static Bigrama CreateBigrama(global::System.Int32 id, global::System.String valor, global::System.Boolean extremoAEsquerda, global::System.Boolean extremoADireita)
+        {
+            Bigrama bigrama = new Bigrama();
+            bigrama.Id = id;
+            bigrama.Valor = valor;
+            bigrama.ExtremoAEsquerda = extremoAEsquerda;
+            bigrama.ExtremoADireita = extremoADireita;
+            return bigrama;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Valor
+        {
+            get
+            {
+                return _Valor;
+            }
+            set
+            {
+                OnValorChanging(value);
+                ReportPropertyChanging("Valor");
+                _Valor = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Valor");
+                OnValorChanged();
+            }
+        }
+        private global::System.String _Valor;
+        partial void OnValorChanging(global::System.String value);
+        partial void OnValorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ExtremoAEsquerda
+        {
+            get
+            {
+                return _ExtremoAEsquerda;
+            }
+            set
+            {
+                OnExtremoAEsquerdaChanging(value);
+                ReportPropertyChanging("ExtremoAEsquerda");
+                _ExtremoAEsquerda = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExtremoAEsquerda");
+                OnExtremoAEsquerdaChanged();
+            }
+        }
+        private global::System.Boolean _ExtremoAEsquerda;
+        partial void OnExtremoAEsquerdaChanging(global::System.Boolean value);
+        partial void OnExtremoAEsquerdaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ExtremoADireita
+        {
+            get
+            {
+                return _ExtremoADireita;
+            }
+            set
+            {
+                OnExtremoADireitaChanging(value);
+                ReportPropertyChanging("ExtremoADireita");
+                _ExtremoADireita = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExtremoADireita");
+                OnExtremoADireitaChanged();
+            }
+        }
+        private global::System.Boolean _ExtremoADireita;
+        partial void OnExtremoADireitaChanging(global::System.Boolean value);
+        partial void OnExtremoADireitaChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ProjetoIndexacaoDBModel", "Palavra_Bigrama", "Palavra")]
+        public EntityCollection<Palavra> Palavras
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Palavra>("ProjetoIndexacaoDBModel.Palavra_Bigrama", "Palavra");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Palavra>("ProjetoIndexacaoDBModel.Palavra_Bigrama", "Palavra", value);
+                }
+            }
+        }
+
+        #endregion
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -571,6 +754,28 @@ namespace LyricsReader
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MusicaPalavra>("ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra", "MusicaPalavra", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ProjetoIndexacaoDBModel", "Palavra_Bigrama", "Bigrama")]
+        public EntityCollection<Bigrama> Bigramas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Bigrama>("ProjetoIndexacaoDBModel.Palavra_Bigrama", "Bigrama");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Bigrama>("ProjetoIndexacaoDBModel.Palavra_Bigrama", "Bigrama", value);
                 }
             }
         }

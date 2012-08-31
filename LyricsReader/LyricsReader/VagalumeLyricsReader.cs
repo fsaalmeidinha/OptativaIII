@@ -11,7 +11,7 @@ namespace LyricsReader
     public class VagalumeLyricsReader
     {
         //string urlEstilo = "http://www.vagalume.com.br/browse/style/mpb.html";
-        List<char> letrasAlfabeto = new List<char>() { 'c' };//, 'd', 'e', 'f', 'g', 'h' };
+        List<char> letrasAlfabeto = new List<char>() { 'a' };//, 'd', 'e', 'f', 'g', 'h' };
         List<string> urlsEstilos = new List<string>() { 
             "http://www.vagalume.com.br/browse/style/mpb.html",
             "http://www.vagalume.com.br/browse/style/pagode.html",
