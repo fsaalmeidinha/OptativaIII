@@ -11,7 +11,7 @@ namespace LyricsReader
     public class VagalumeLyricsReader
     {
         //string urlEstilo = "http://www.vagalume.com.br/browse/style/mpb.html";
-        List<char> letrasAlfabeto = new List<char>() { 'a' };//, 'd', 'e', 'f', 'g', 'h' };
+        List<char> letrasAlfabeto = new List<char>() { 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
         List<string> urlsEstilos = new List<string>() { 
             "http://www.vagalume.com.br/browse/style/mpb.html",
             "http://www.vagalume.com.br/browse/style/pagode.html",
@@ -135,6 +135,9 @@ namespace LyricsReader
                 musica.Letra = letra;
 
                 musicas.Add(musica);
+                ProjetoIndexacaoDBEntities ent = new ProjetoIndexacaoDBEntities();
+                ent.Musicas.AddObject(musica);
+                ent.SaveChanges();
             }
 
             return musicas;
@@ -172,3 +175,5 @@ namespace LyricsReader
         }
     }
 }
+
+

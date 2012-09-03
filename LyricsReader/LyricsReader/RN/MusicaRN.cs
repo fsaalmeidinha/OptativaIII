@@ -42,8 +42,8 @@ namespace LyricsReader.RN
                 int maxNomeMusica = musicas.Max(msk => msk.NomeMusica.Length);
                 int maxLetra = musicas.Max(msk => msk.Letra.Length);
 
-                musicas.ForEach(msk => ent.Musicas.AddObject(msk));
-                ent.SaveChanges();
+                //musicas.ForEach(msk => ent.Musicas.AddObject(msk));
+                //ent.SaveChanges();
                 return erros;
             }
             catch (Exception ex)

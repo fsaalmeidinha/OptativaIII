@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace LyricsReader.RN
 {
@@ -29,13 +30,15 @@ namespace LyricsReader.RN
         {
             try
             {
-                List<Musica> musicas = musicaRN.PesquisarMusicas();
+                int qtdLidas = 320;
+                int qtdLer = 100;
+                List<Musica> musicas = musicaRN.PesquisarMusicas().Skip(qtdLidas).Take(qtdLer).ToList();
 
                 //Elimina os caracteres especiais e pontuação
                 musicas.ForEach(msk => msk.Letra = Utils.NormalizeString(msk.Letra));
 
                 List<Palavra> palavras = RecuperaPalavrasMusicas(musicas);
-                palavras.ForEach(plv => ent.Palavras.AddObject(plv));
+                palavras.Where(plv => plv.EntityState == EntityState.Detached).ToList().ForEach(plv => ent.Palavras.AddObject(plv));
 
                 ent.SaveChanges();
                 return "";
@@ -48,10 +51,9 @@ namespace LyricsReader.RN
 
         private List<Palavra> RecuperaPalavrasMusicas(List<Musica> musicas)
         {
-            List<Palavra> palavras = new List<Palavra>();
-            List<MusicaPalavra> musicasPalavras = new List<MusicaPalavra>();
+            List<Palavra> palavras = ent.Palavras.ToList();//new List<Palavra>();
+            List<MusicaPalavra> musicasPalavras = ent.MusicaPalavras.ToList();// new List<MusicaPalavra>();
 
-            //Salvou até a musica 400
             foreach (Musica msk in musicas)
             {
                 string[] palavrasMusica = msk.Letra.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
