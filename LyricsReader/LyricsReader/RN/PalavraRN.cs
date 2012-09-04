@@ -30,8 +30,8 @@ namespace LyricsReader.RN
         {
             try
             {
-                int qtdLidas = 320;
-                int qtdLer = 100;
+                int qtdLidas = 720;
+                int qtdLer = 200;
                 List<Musica> musicas = musicaRN.PesquisarMusicas().Skip(qtdLidas).Take(qtdLer).ToList();
 
                 //Elimina os caracteres especiais e pontuação
