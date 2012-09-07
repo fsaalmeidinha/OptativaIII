@@ -30,12 +30,9 @@ namespace LyricsReader.RN
         {
             try
             {
-                int qtdLidas = 720;
-                int qtdLer = 200;
-                List<Musica> musicas = musicaRN.PesquisarMusicas().Skip(qtdLidas).Take(qtdLer).ToList();
-
-                //Elimina os caracteres especiais e pontuação
-                musicas.ForEach(msk => msk.Letra = Utils.NormalizeString(msk.Letra));
+                int qtdLidas = 0;
+                int qtdLer = 10;
+                List<Musica> musicas = ent.Musicas.OrderBy(msk => msk.Id).Skip(qtdLidas).Take(qtdLer).ToList();
 
                 List<Palavra> palavras = RecuperaPalavrasMusicas(musicas);
                 palavras.Where(plv => plv.EntityState == EntityState.Detached).ToList().ForEach(plv => ent.Palavras.AddObject(plv));
@@ -56,10 +53,11 @@ namespace LyricsReader.RN
 
             foreach (Musica msk in musicas)
             {
-                string[] palavrasMusica = msk.Letra.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                //Elimina os caracteres especiais e pontuação
+                string[] palavrasMusica = Utils.NormalizeString(msk.Letra).Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 for (int indPalavraMusica = 0; indPalavraMusica < palavrasMusica.Length; indPalavraMusica++)
                 {
-                    string p = palavrasMusica[indPalavraMusica];
+                    string p = palavrasMusica[indPalavraMusica].ToLower();
                     Palavra palavra = palavras.FirstOrDefault(plv => String.Compare(plv.Descricao, p, true) == 0);
                     if (palavra == null)
                     {

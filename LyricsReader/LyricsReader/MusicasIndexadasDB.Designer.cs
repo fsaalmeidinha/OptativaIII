@@ -123,18 +123,18 @@ namespace LyricsReader
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Bigrama> Bigrama
+        public ObjectSet<Bigrama> Bigramas
         {
             get
             {
-                if ((_Bigrama == null))
+                if ((_Bigramas == null))
                 {
-                    _Bigrama = base.CreateObjectSet<Bigrama>("Bigrama");
+                    _Bigramas = base.CreateObjectSet<Bigrama>("Bigramas");
                 }
-                return _Bigrama;
+                return _Bigramas;
             }
         }
-        private ObjectSet<Bigrama> _Bigrama;
+        private ObjectSet<Bigrama> _Bigramas;
 
         #endregion
         #region AddTo Methods
@@ -164,11 +164,11 @@ namespace LyricsReader
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Bigrama EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Bigramas EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToBigrama(Bigrama bigrama)
+        public void AddToBigramas(Bigrama bigrama)
         {
-            base.AddObject("Bigrama", bigrama);
+            base.AddObject("Bigramas", bigrama);
         }
 
         #endregion
@@ -765,7 +765,7 @@ namespace LyricsReader
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("ProjetoIndexacaoDBModel", "Palavra_Bigrama", "Bigrama")]
-        public EntityCollection<Bigrama> Bigramas
+        public EntityCollection<Bigrama> Bigrama
         {
             get
             {

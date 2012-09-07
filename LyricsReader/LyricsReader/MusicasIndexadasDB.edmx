@@ -10,12 +10,7 @@
           <EntitySet Name="Musica" EntityType="ProjetoIndexacaoDBModel.Store.Musica" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MusicaPalavra" EntityType="ProjetoIndexacaoDBModel.Store.MusicaPalavra" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Palavra" EntityType="ProjetoIndexacaoDBModel.Store.Palavra" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Palavra_Bigrama" EntityType="ProjetoIndexacaoDBModel.Store.Palavra_Bigrama" store:Type="Tables" store:Schema="dbo" store:Name="Palavra_Bigrama">
-            <DefiningQuery>SELECT 
-      [Palavra_Bigrama].[IdPalavra] AS [IdPalavra], 
-      [Palavra_Bigrama].[IdBigrama] AS [IdBigrama]
-      FROM [dbo].[Palavra_Bigrama] AS [Palavra_Bigrama]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Palavra_Bigrama" EntityType="ProjetoIndexacaoDBModel.Store.Palavra_Bigrama" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_MusicaPalavra_Musica" Association="ProjetoIndexacaoDBModel.Store.FK_MusicaPalavra_Musica">
             <End Role="Musica" EntitySet="Musica" />
             <End Role="MusicaPalavra" EntitySet="MusicaPalavra" />
@@ -65,11 +60,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Descricao" Type="nchar" Nullable="false" MaxLength="80" />
+          <Property Name="Descricao" Type="nvarchar" Nullable="false" MaxLength="80" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'MusicasIndexadasDB.dbo.Palavra_Bigrama' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="Palavra_Bigrama">
           <Key>
             <PropertyRef Name="IdPalavra" />
@@ -142,9 +134,9 @@
             <End Role="Palavra" EntitySet="Palavras" />
             <End Role="MusicaPalavra" EntitySet="MusicaPalavras" />
           </AssociationSet>
-          <EntitySet Name="Bigrama" EntityType="ProjetoIndexacaoDBModel.Bigrama" />
+          <EntitySet Name="Bigramas" EntityType="ProjetoIndexacaoDBModel.Bigrama" />
           <AssociationSet Name="Palavra_Bigrama" Association="ProjetoIndexacaoDBModel.Palavra_Bigrama">
-            <End Role="Bigrama" EntitySet="Bigrama" />
+            <End Role="Bigrama" EntitySet="Bigramas" />
             <End Role="Palavra" EntitySet="Palavras" />
           </AssociationSet>
         </EntityContainer>
@@ -172,9 +164,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="80" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MusicaPalavras" Relationship="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" FromRole="Palavra" ToRole="MusicaPalavra" />
-          <NavigationProperty Name="Bigramas" Relationship="ProjetoIndexacaoDBModel.Palavra_Bigrama" FromRole="Palavra" ToRole="Bigrama" />
+          <NavigationProperty Name="Bigrama" Relationship="ProjetoIndexacaoDBModel.Palavra_Bigrama" FromRole="Palavra" ToRole="Bigrama" />
         </EntityType>
         <Association Name="FK_MusicaPalavra_Musica">
           <End Type="ProjetoIndexacaoDBModel.Musica" Role="Musica" Multiplicity="1" />
@@ -246,7 +238,7 @@
               <ScalarProperty Name="Id" ColumnName="IdPalavra" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Bigrama">
+          <EntitySetMapping Name="Bigramas">
             <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Bigrama">
               <MappingFragment StoreEntitySet="Bigrama">
                 <ScalarProperty Name="ExtremoADireita" ColumnName="ExtremoADireita" />
@@ -264,7 +256,7 @@
               <ScalarProperty Name="Id" ColumnName="IdBigrama" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

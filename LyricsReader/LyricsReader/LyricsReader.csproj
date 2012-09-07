@@ -54,8 +54,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RN\BigramaRN.cs" />
     <Compile Include="RN\MusicaRN.cs" />
     <Compile Include="RN\PalavraRN.cs" />
+    <Compile Include="RN\SoundexRN.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="VagalumeLyricsReader.cs" />
   </ItemGroup>

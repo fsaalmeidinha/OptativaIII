@@ -12,9 +12,9 @@
       <End Role="Palavra" EntitySet="Palavras" />
       <End Role="MusicaPalavra" EntitySet="MusicaPalavras" />
     </AssociationSet>
-    <EntitySet Name="Bigrama" EntityType="ProjetoIndexacaoDBModel.Bigrama" />
+    <EntitySet Name="Bigramas" EntityType="ProjetoIndexacaoDBModel.Bigrama" />
     <AssociationSet Name="Palavra_Bigrama" Association="ProjetoIndexacaoDBModel.Palavra_Bigrama">
-      <End Role="Bigrama" EntitySet="Bigrama" />
+      <End Role="Bigrama" EntitySet="Bigramas" />
       <End Role="Palavra" EntitySet="Palavras" />
     </AssociationSet>
   </EntityContainer>
@@ -42,9 +42,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="80" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="Descricao" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="MusicaPalavras" Relationship="ProjetoIndexacaoDBModel.FK_MusicaPalavra_Palavra" FromRole="Palavra" ToRole="MusicaPalavra" />
-    <NavigationProperty Name="Bigramas" Relationship="ProjetoIndexacaoDBModel.Palavra_Bigrama" FromRole="Palavra" ToRole="Bigrama" />
+    <NavigationProperty Name="Bigrama" Relationship="ProjetoIndexacaoDBModel.Palavra_Bigrama" FromRole="Palavra" ToRole="Bigrama" />
   </EntityType>
   <Association Name="FK_MusicaPalavra_Musica">
     <End Type="ProjetoIndexacaoDBModel.Musica" Role="Musica" Multiplicity="1" />

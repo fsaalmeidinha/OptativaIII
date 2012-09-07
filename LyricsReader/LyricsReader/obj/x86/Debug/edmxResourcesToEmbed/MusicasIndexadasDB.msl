@@ -43,7 +43,7 @@
         <ScalarProperty Name="Id" ColumnName="IdPalavra" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="Bigrama">
+    <EntitySetMapping Name="Bigramas">
       <EntityTypeMapping TypeName="ProjetoIndexacaoDBModel.Bigrama">
         <MappingFragment StoreEntitySet="Bigrama">
           <ScalarProperty Name="ExtremoADireita" ColumnName="ExtremoADireita" />

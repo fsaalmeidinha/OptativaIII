@@ -16,6 +16,12 @@ namespace LyricsReader
             PalavraRN palavraRN = new PalavraRN();
             palavraRN.SalvarPalavras();
 
+            //BigramaRN bigramaRN = new BigramaRN();
+            //bigramaRN.SalvarBigramas();
+
+
+
+
 
             //List<Musica> musicas = musicaRN.PesquisarMusicasPorFiltro("avenida", "coracao");
 

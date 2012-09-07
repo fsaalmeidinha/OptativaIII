@@ -27,3 +27,9 @@ C:\Users\felipe.almeida1\Desktop\optativa3\LyricsReader\LyricsReader\obj\x86\Deb
 C:\Users\felipe.almeida1\Desktop\optativa3\LyricsReader\LyricsReader\bin\Debug\LyricsReader.exe
 C:\Users\felipe.almeida1\Desktop\optativa3\LyricsReader\LyricsReader\bin\Debug\LyricsReader.pdb
 C:\Users\felipe.almeida1\Desktop\optativa3\LyricsReader\LyricsReader\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\felipe.almeida1.SENACEDU\Desktop\optativa3\LyricsReader\LyricsReader\bin\Debug\LyricsReader.exe.config
+C:\Users\felipe.almeida1.SENACEDU\Desktop\optativa3\LyricsReader\LyricsReader\obj\x86\Debug\LyricsReader.exe
+C:\Users\felipe.almeida1.SENACEDU\Desktop\optativa3\LyricsReader\LyricsReader\obj\x86\Debug\LyricsReader.pdb
+C:\Users\felipe.almeida1.SENACEDU\Desktop\optativa3\LyricsReader\LyricsReader\bin\Debug\LyricsReader.exe
+C:\Users\felipe.almeida1.SENACEDU\Desktop\optativa3\LyricsReader\LyricsReader\bin\Debug\LyricsReader.pdb
+C:\Users\felipe.almeida1.SENACEDU\Desktop\optativa3\LyricsReader\LyricsReader\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -23,11 +23,6 @@ namespace LyricsReader.RN
 
         #endregion Construtores
 
-        public List<Musica> PesquisarMusicas()
-        {
-            return ent.Musicas.ToList();
-        }
-
         public string SalvarMusicas()
         {
             try
