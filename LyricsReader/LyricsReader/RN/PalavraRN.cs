@@ -30,8 +30,8 @@ namespace LyricsReader.RN
         {
             try
             {
-                int qtdLidas = 0;
-                int qtdLer = 10;
+                int qtdLidas = 900;
+                int qtdLer = 100;
                 List<Musica> musicas = ent.Musicas.OrderBy(msk => msk.Id).Skip(qtdLidas).Take(qtdLer).ToList();
 
                 List<Palavra> palavras = RecuperaPalavrasMusicas(musicas);
