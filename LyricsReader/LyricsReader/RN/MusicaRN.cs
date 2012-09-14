@@ -8,6 +8,16 @@ namespace LyricsReader.RN
     public class MusicaRN
     {
         ProjetoIndexacaoDBEntities ent;
+        //private List<Palavra> _palavras;
+        //private List<Palavra> Palavras
+        //{
+        //    get
+        //    {
+        //        if (_palavras == null)
+        //            _palavras = ent.Palavras.ToList();
+        //        return _palavras;
+        //    }
+        //}
 
         #region Construtores
 
@@ -69,6 +79,52 @@ namespace LyricsReader.RN
             //}
 
             return musicas.ToList();
+        }
+
+        private List<Musica> PesquisarPalavrasFiltroComposto(List<string> filtros)
+        {
+            List<Musica> musicasRetorno = new List<Musica>();
+            List<Palavra> palavrasFiltros = new List<Palavra>();
+
+            //Lista todas as listas de palavras de cada filtro
+            foreach (string filtro in filtros)
+            {
+                string filtroCompare = filtro.ToLower();
+                Palavra palavra = ent.Palavras.FirstOrDefault(plv => plv.Descricao == filtroCompare);
+                //Se um dos filtros não for encontrado, retornar vazio
+                if (palavra == null)
+                    return new List<Musica>();
+                palavrasFiltros.Add(palavra);
+            }
+
+            List<Musica> musicas = palavrasFiltros.First().MusicaPalavras.Select(mskPlv => mskPlv.Musica).ToList();
+            //Recupera a interseccao de todas as musicasPalavras
+            foreach (Palavra palavra in palavrasFiltros.Skip(1))
+            {
+                musicas = musicas.Intersect(palavra.MusicaPalavras.Select(mskPlv => mskPlv.Musica)).ToList();
+            }
+
+            Dictionary<Musica, List<string>> indicesPosMusica = new Dictionary<Musica, List<string>>();
+            foreach (Musica msk in musicas)
+            {
+                indicesPosMusica.Add(msk, new List<string>());
+                //indices da primeira palavra na musica corrente
+                List<int> indicesGuia = palavrasFiltros.First().MusicaPalavras.First(mskPlv => mskPlv.Musica == msk).Indices.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(ind => Convert.ToInt32(ind)).ToList();
+                foreach (Palavra palavra in palavrasFiltros.Skip(1))
+                {
+                    //Deve ser encontrada na posição seguinte
+                    indicesGuia = indicesGuia.Select(indGuia => indGuia = indGuia + 1).ToList();
+                    List<int> indicesMusicaPalavra = palavra.MusicaPalavras.First(mskPlv => mskPlv.Musica == msk).Indices.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(ind => Convert.ToInt32(ind)).ToList();
+                    //Recupera a interseccao
+                    indicesGuia = indicesGuia.Intersect(indicesMusicaPalavra).ToList();
+                }
+
+                if (indicesGuia.Count > 0)
+                {
+                    musicasRetorno.Add(msk);
+                }
+            }
+            return musicasRetorno;
         }
     }
 }
