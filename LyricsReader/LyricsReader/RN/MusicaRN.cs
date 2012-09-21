@@ -126,5 +126,63 @@ namespace LyricsReader.RN
             }
             return musicasRetorno;
         }
+
+        public List<Musica> PesquisarPalavrasFiltroCoringa(string filtro)
+        {
+            string filtroAux = filtro.ToLower();
+            List<Musica> musicasRetorno = new List<Musica>();
+            List<Palavra> palavrasFiltros = new List<Palavra>();
+
+            List<List<Palavra>> palavrasBigramas = new List<List<Palavra>>();
+
+            if (filtroAux[0] != '*')
+            {
+                string bigrama = "$" + filtroAux[0].ToString();
+                Bigrama bigramaObj = ent.Bigramas.FirstOrDefault(big => big.Valor == bigrama);
+                if (bigramaObj != null)
+                    palavrasBigramas.Add(bigramaObj.Palavras.ToList());
+            }
+
+            if (filtroAux.Last() != '*')
+            {
+                string bigrama = filtroAux.Last().ToString() + "$";
+                Bigrama bigramaObj = ent.Bigramas.FirstOrDefault(big => big.Valor == bigrama);
+                if (bigramaObj != null)
+                    palavrasBigramas.Add(bigramaObj.Palavras.ToList());
+            }
+
+            //A primeira e ultima letra ja foram avaliadas, por isso i = 1 e vai até length -2
+            for (int i = 1; i < filtroAux.Length - 2; i++)
+            {
+                string bigrama = filtroAux.Substring(i, 2);
+                Bigrama bigramaObj = ent.Bigramas.FirstOrDefault(big => big.Valor == bigrama);
+                if (bigramaObj != null)
+                    palavrasBigramas.Add(bigramaObj.Palavras.ToList());
+            }
+
+            if (palavrasBigramas.Count == 0)
+                return new List<Musica>();
+
+            //Faz a interseccao das palavras
+            List<Palavra> palavrasFiltro = new List<Palavra>(palavrasBigramas.First());
+            for (int i = 1; i < palavrasBigramas.Count; i++)
+            {
+                palavrasFiltro = palavrasFiltro.Intersect(palavrasBigramas[i]).ToList();
+            }
+
+            //Filtra as palavras que realmente tem a composição solicitada
+            string filtroCompare = filtroAux.Replace("*", "");
+            palavrasFiltro = palavrasFiltro.Where(plv => plv.Descricao.Contains(filtroCompare)).ToList();
+
+            //Seleciona as musicas das palavras
+            List<Musica> musicas = palavrasFiltros.First().MusicaPalavras.Select(mskPlv => mskPlv.Musica).ToList();
+            //Recupera a interseccao de todas as musicasPalavras
+            foreach (Palavra palavra in palavrasFiltros.Skip(1))
+            {
+                musicas = musicas.Intersect(palavra.MusicaPalavras.Select(mskPlv => mskPlv.Musica)).ToList();
+            }
+
+            return musicasRetorno;
+        }
     }
 }
