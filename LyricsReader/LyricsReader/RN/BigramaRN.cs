@@ -32,7 +32,7 @@ namespace LyricsReader.RN
             try
             {
                 int qtdLidas = 0;
-                int qtdLer = 10;
+                int qtdLer = 10975;
                 List<Palavra> palavras = ent.Palavras.OrderBy(plv => plv.Id).Skip(qtdLidas).Take(qtdLer).ToList();
 
                 AdicionarPalavrasABigramas(palavras);
@@ -68,7 +68,7 @@ namespace LyricsReader.RN
                 }
                 bigExtremoDir.Palavras.Add(palavra);
 
-                for (int indInicioPalavra = 1; indInicioPalavra < palavra.Descricao.Length - 2; indInicioPalavra++)
+                for (int indInicioPalavra = 0; indInicioPalavra < palavra.Descricao.Length - 1; indInicioPalavra++)
                 {
                     string bigramaStr = palavraStr.Substring(indInicioPalavra, 2);
                     Bigrama bigrama = bigramas.FirstOrDefault(big => big.Valor == bigramaStr);

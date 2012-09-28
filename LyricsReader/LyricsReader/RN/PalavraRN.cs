@@ -35,8 +35,7 @@ namespace LyricsReader.RN
                 int qtdLer = 200;
                 List<Musica> musicas = ent.Musicas.OrderBy(msk => msk.Id).Skip(qtdLidas).Take(qtdLer).ToList();
 
-                List<Palavra> palavras = RecuperaPalavrasMusicas(musicas);
-                palavras.Where(plv => plv.EntityState == EntityState.Detached).ToList().ForEach(plv => ent.Palavras.AddObject(plv));
+                RecuperaPalavrasMusicas(musicas);
 
                 ent.SaveChanges();
                 return "";
@@ -47,10 +46,10 @@ namespace LyricsReader.RN
             }
         }
 
-        private List<Palavra> RecuperaPalavrasMusicas(List<Musica> musicas)
+        private void RecuperaPalavrasMusicas(List<Musica> musicas)
         {
-            List<Palavra> palavras = ent.Palavras.ToList();//new List<Palavra>();
-            List<MusicaPalavra> musicasPalavras = ent.MusicaPalavras.ToList();// new List<MusicaPalavra>();
+            //List<Palavra> palavras = ent.Palavras.ToList();//new List<Palavra>();
+            //List<MusicaPalavra> musicasPalavras = ent.MusicaPalavras.ToList();// new List<MusicaPalavra>();
 
             foreach (Musica msk in musicas)
             {
@@ -59,14 +58,13 @@ namespace LyricsReader.RN
                 for (int indPalavraMusica = 0; indPalavraMusica < palavrasMusica.Length; indPalavraMusica++)
                 {
                     string p = palavrasMusica[indPalavraMusica].ToLower();
-                    Palavra palavra = palavras.FirstOrDefault(plv => String.Compare(plv.Descricao, p, true) == 0);
+                    Palavra palavra = ent.Palavras.FirstOrDefault(plv => String.Compare(plv.Descricao, p, true) == 0);
                     if (palavra == null)
                     {
                         palavra = new Palavra() { Descricao = p };
-                        palavras.Add(palavra);
                     }
 
-                    MusicaPalavra musicaPalavras = musicasPalavras.FirstOrDefault(mskPlv => mskPlv.Palavra == palavra && mskPlv.Musica == msk);
+                    MusicaPalavra musicaPalavras = ent.MusicaPalavras.FirstOrDefault(mskPlv => mskPlv.Palavra.Descricao == palavra.Descricao && mskPlv.Musica.Id == msk.Id);
                     if (musicaPalavras == null)
                     {
                         musicaPalavras = new MusicaPalavra()
@@ -74,14 +72,11 @@ namespace LyricsReader.RN
                             Musica = msk,
                             Palavra = palavra
                         };
-                        musicasPalavras.Add(musicaPalavras);
                     }
 
                     musicaPalavras.Indices += "," + indPalavraMusica;
                 }
             }
-
-            return palavras;
         }
     }
 }

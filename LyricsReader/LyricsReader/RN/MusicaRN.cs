@@ -152,7 +152,7 @@ namespace LyricsReader.RN
             }
 
             //A primeira e ultima letra ja foram avaliadas, por isso i = 1 e vai até length -2
-            for (int i = 1; i < filtroAux.Length - 2; i++)
+            for (int i = 1; i < filtroAux.Length - 1; i++)
             {
                 string bigrama = filtroAux.Substring(i, 2);
                 Bigrama bigramaObj = ent.Bigramas.FirstOrDefault(big => big.Valor == bigrama);
@@ -174,12 +174,17 @@ namespace LyricsReader.RN
             string filtroCompare = filtroAux.Replace("*", "");
             palavrasFiltro = palavrasFiltro.Where(plv => plv.Descricao.Contains(filtroCompare)).ToList();
 
-            //Seleciona as musicas das palavras
-            List<Musica> musicas = palavrasFiltros.First().MusicaPalavras.Select(mskPlv => mskPlv.Musica).ToList();
-            //Recupera a interseccao de todas as musicasPalavras
-            foreach (Palavra palavra in palavrasFiltros.Skip(1))
+            if (palavrasFiltro.Count == 0)
+                return musicasRetorno;
+
+            //Recupera a união de todas as musicasPalavras
+            foreach (Palavra palavra in palavrasFiltro)
             {
-                musicas = musicas.Intersect(palavra.MusicaPalavras.Select(mskPlv => mskPlv.Musica)).ToList();
+                foreach (Musica msk in palavra.MusicaPalavras.Select(mp => mp.Musica))
+                {
+                    if (!musicasRetorno.Contains(msk))
+                        musicasRetorno.Add(msk);
+                }
             }
 
             return musicasRetorno;

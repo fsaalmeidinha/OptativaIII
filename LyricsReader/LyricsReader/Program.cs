@@ -12,9 +12,9 @@ namespace LyricsReader
         static void Main(string[] args)
         {
             //List<Musica> musicas = new MusicaRN().PesquisarPalavrasFiltroComposto(new List<string>() { "me", "encanta", "com", "sua", "magia" });
-            List<Musica> musicas = new MusicaRN().PesquisarPalavrasFiltroCoringa("sacram*");//sacramentado
+            //List<Musica> musicas = new MusicaRN().PesquisarPalavrasFiltroCoringa("sacram*");//sacramentado
 
-            return;
+            //return;
 
             //MusicaRN musicaRN = new MusicaRN();
             //musicaRN.SalvarMusicas();
